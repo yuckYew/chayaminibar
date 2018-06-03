@@ -1,6 +1,8 @@
 from app import app
 from flask_restful import Api, Resource
 
+api = Api(app)
+
 @app.route('/')
 @app.route('/index')
 def index():

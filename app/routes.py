@@ -1,6 +1,7 @@
 from app import app
 from flask_restful import Api, Resource
 from app.models import User, Product
+from app import db
 
 api = Api(app)
 
@@ -10,15 +11,19 @@ def index():
     return "Hello, Yawara"
 
 class UserAPI(Resource):
-    def get(self, id):
-        user = User.query.filter_by(id=id).first()
+    def get(self, name):
+        user = User.query.filter_by(username=name).first()
         return {
             'username': user.username,
             'email': user.email,
             'rank': user.rank_id.name
         }
 
-    def post(self, id):
+    def post(self, username):
+        # WIP 
+        #user = User(username=from_request.username, email=from_firebase.email)
+        db.session.add(user)
+        db.session.commit()
         pass
 
     def delete(self, id):

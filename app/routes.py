@@ -1,26 +1,38 @@
 from app import app
+from flask_restful import Api, Resource
 
 @app.route('/')
 @app.route('/index')
 def index():
     return "Hello, Yawara"
 
-# API for getting Login
-@app.route('/api/login')
-def manage_login(method=['POST']):
+class UserAPI(Resource):
+    def get(self, id):
+        pass
 
-# API for GETting User information
-@app.route('/api/user/<int:user_id>', method=['GET'])
-def get_user(user_id):
+    def post(self, id):
+        pass
 
-# API for registering User Information
-@app.route('/api/user/register', method=['POST'])
-def register_user():
+    def delete(self, id):
+        pass
 
-# API for GETting Product Information
-@app.route('/api/product/<int:product_id>', method=['GET'])
-def get_product(product_id):
+class ProductAPI(Resource):
+    def get(self, id):
+        pass
 
-# API for registering Product Information
-@app.route('/api/product/register', method=['POST'])
-def register_product():
+    def post(self, id):
+        pass
+
+    def delete(self, id):
+        pass
+
+class LoginAPI(Resource):
+    def get(self, id):
+        pass
+
+    def post(self, id):
+        pass
+
+api.add_resource(UserAPI, '/users/<int:id>', endpoint='user')
+api.add_resource(ProductAPI, '/products/<int:id>', endpoint='product')
+api.add_resource(LoginAPI, '/login', endpoint='login')

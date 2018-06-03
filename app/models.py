@@ -6,7 +6,7 @@ class User(db.Model):
     username        = db.Column(db.String(64), index=True, unique=True)
     email           = db.Column(db.String(120), index=True, unique=True)
     firebase_uid    = db.Column(db.String(64), index=True, unique=True)
-    rank_id         = db.Column(db.Integer, index=True)
+    rank_id         = db.relationship('Rank', uselist=False)
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
@@ -14,10 +14,11 @@ class User(db.Model):
 class Rank(db.Model):
     id      = db.Column(db.Integer, primary_key=True)
     name    = db.Column(db.String(64), index=True, unique=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
 class Admin(db.Model):
     id      = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
 class ChashTrade(db.Model):
     id          = db.Column(db.Integer, primary_key=True)
@@ -29,7 +30,6 @@ class ChashTrade(db.Model):
 class Product(db.Model):
     id          = db.Column(db.Integer, primary_key=True)
     name        = db.Column(db.String(64), index=True, unique=True)
-    timestamp   = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     price       = db.Column(db.Integer, index=True)
     barcode     = db.Column(db.Integer, index=True)
 
